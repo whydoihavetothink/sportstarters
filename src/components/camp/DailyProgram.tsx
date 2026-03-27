@@ -6,9 +6,9 @@ const schedule = [
 { time: "12:00–12:45", activity: "Oběd", icon: "🍽️" },
 { time: "12:45–13:30", activity: "Odpočinek (stolní hry, klidnější aktivity)", icon: "🎲" },
 { time: "13:30–14:30", activity: "Kreativní a týmové hry", icon: "🏅" },
-{ time: "14:30–14:45", activity: "Zdravá svačina", icon: "🍎" },
-{ time: "14:45–16:00", activity: "Odpolední sportovní blok", icon: "🏀" },
-{ time: "16:00–16:30", activity: "Vyzvedávání dětí", icon: "👫" }];
+{ time: "14:30–15:00", activity: "Zdravá svačina", icon: "🍎" },
+{ time: "15:00–16:30", activity: "Odpolední sportovní blok", icon: "🏀" },
+{ time: "16:30–17:00", activity: "Vyzvedávání dětí", icon: "👫" }];
 
 
 const DailyProgram = () => {

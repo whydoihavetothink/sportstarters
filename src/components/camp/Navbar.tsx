@@ -6,7 +6,7 @@ const links = [
 { label: "O Kempu", href: "#o-kempu" },
 { label: "Program", href: "#program" },
 { label: "Cena", href: "#cena" },
-{ label: "Termíny a lokolita", href: "#terminy-a-lokalita" }];
+{ label: "Termíny a lokalita", href: "#terminy" }];
 
 
 const Navbar = () => {
@@ -31,7 +31,7 @@ const Navbar = () => {
             </a>
           )}
           <Button variant="cta" size="sm" asChild>
-            <a href="#registration">Přihláška</a>
+            <a href="#registrace">Přihláška</a>
           </Button>
         </div>
 
@@ -59,7 +59,7 @@ const Navbar = () => {
             </a>
         )}
           <Button variant="cta" size="sm" className="w-full" asChild>
-            <a href="#registration" onClick={() => setOpen(false)}>Register</a>
+            <a href="#registrace" onClick={() => setOpen(false)}>Přihlásit se</a>
           </Button>
         </div>
       }

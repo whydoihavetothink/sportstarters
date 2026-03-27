@@ -7,8 +7,9 @@ import PriceSection from "@/components/camp/PriceSection";
 import ParentInfo from "@/components/camp/ParentInfo";
 import ResponsiblePerson from "@/components/camp/ResponsiblePerson";
 import FAQSection from "@/components/camp/FAQSection";
-import RegistrationForm from "@/components/camp/RegistrationForm";
 import Footer from "@/components/camp/Footer";
+import EventsSection from "@/components/camp/EventsSection";
+import RegistrationSection from "@/components/camp/FormSection/RegistrationSection";
 
 const Index = () => {
   return (
@@ -18,13 +19,11 @@ const Index = () => {
       <AboutSection />
       <WhoIsItFor />
       <DailyProgram />
+      <EventsSection />
       <PriceSection />
-      <ParentInfo />
       <ResponsiblePerson />
-      <div id="faq">
-        <FAQSection />
-      </div>
-      <RegistrationForm />
+      <FAQSection />
+      <RegistrationSection />
       <Footer />
     </div>
   );

@@ -6,37 +6,53 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  {
-    q: "What should kids bring?",
-    a: "Comfortable sportswear, indoor and outdoor shoes, a water bottle, sunscreen, and a hat. We'll send a detailed packing list after registration.",
+{
+    q: "Je kemp vhodný i pro úplné začátečníky?",
+    a: "Ano, kemp je vhodný pro všechny děti bez ohledu na úroveň. Aktivity přizpůsobujeme tak, aby si je užili jak začátečníci, tak sportovně pokročilejší děti.",
   },
   {
-    q: "What if my child is a complete beginner?",
-    a: "That's exactly who we're here for! All activities are designed so every child can participate, learn, and have fun regardless of skill level.",
+    q: "Jak probíhá běžný den na kempu?",
+    a: "Každý den zahrnuje sportovní aktivity, hry a soutěže. Dbáme na pestrost programu, aby děti nebyly přetížené a zároveň se bavily. Součástí dne je i čas na odpočinek.",
   },
   {
-    q: "What happens in bad weather?",
-    a: "We have access to indoor facilities. The program continues rain or shine — we simply move activities indoors.",
+    q: "Co by si mělo dítě vzít s sebou na kemp?",
+    a: "Děti budou potřebovat sportovní oblečení, pokrývku hlavy, láhev na pití a obuv dovnitř do haly i ven.",
   },
   {
-    q: "What payment methods do you accept?",
-    a: "Bank transfer is our primary payment method. You'll receive payment details and an invoice after registration.",
+    q: "Co se děje v případě špatného počasí?",
+    a: "V případě špatného počasí se s programem přesuneme do kryté haly. Přesný plán aktivit vždy přizpůsobujeme aktuálním podmínkám tak, aby si děti kemp užily za každého počasí.",
   },
   {
-    q: "What is your cancellation policy?",
-    a: "Full refund up to 14 days before camp starts. 50% refund up to 7 days before. No refund within 7 days of the start date, except for medical reasons with documentation.",
+    q: "Je zajištěný oběd a pitný režim?",
+    a: "Ano, děti mají zajištěný oběd, svačinky i pitný režim po celý den.",
   },
   {
-    q: "Is lunch included?",
-    a: "Yes! A balanced lunch and afternoon snack are included in the price. Please let us know about any dietary requirements or allergies in the registration form.",
+    q: "Je možné vyzvednout dítě dříve?",
+    a: "Ano, po domluvě je možné dítě vyzvednout i dříve.",
   },
+  {
+    q: "Může být dítě ve skupině se svým kamarádem?",
+    a: "Ano, rádi děti zařadíme do stejné skupiny. Stačí tuto informaci uvést při přihlášení nebo poslat na e-mail.",
+  },
+  {
+    q: "Co když dítě onemocní nebo se nemůže kempu zúčastnit?",
+    a: "Pro tyto situace doporučujeme sjednat si níže uvedené pojištění storna. Pokud by dítě před zahájením kempu onemocnělo nebo se zranilo, pojišťovna vám na základě toho vyplatí podstatnou část uhrazené částky zpět.",
+  },
+  {
+    q: "Může dítě na kemp přicházet nebo odcházet samo?",
+    a: "Samostatný příchod i odchod je možný, podmínkou je však odevzdání písemného souhlasu trenérům hned první den. Tímto potvrzením rodič stvrzuje, že za dítě v době mimo program kempu přebírá veškerou odpovědnost.",
+  },
+  {
+    q: "Do kdy je potřeba kemp uhradit?",
+    a: "Platbu je nutné provést nejpozději do jednoho měsíce od podání přihlášky.",
+  }
 ];
 
 const FAQSection = () => {
   return (
     <section className="section-padding bg-surface">
       <div className="container-narrow">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Často kladené otázky</h2>
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, i) => (
             <AccordionItem key={i} value={`faq-${i}`} className="border-border">
