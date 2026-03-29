@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware'; // <-- 1. Import persist
 
-// 1. Define the shape of our data
+// 1. Define the shape of our data (Unchanged)
 export interface FormData {
+  variableSymbol: string;
   term: string;
   childFirstName: string;
   childLastName: string;
@@ -18,7 +20,7 @@ export interface FormData {
   consent: boolean;
 }
 
-// 2. Define the shape of our store (State + Actions)
+// 2. Define the shape of our store (Unchanged)
 interface RegistrationStore {
   step: number;
   formData: FormData;
@@ -28,6 +30,7 @@ interface RegistrationStore {
 }
 
 const initialFormData: FormData = {
+  variableSymbol: "",
   term: "",
   childFirstName: "",
   childLastName: "",
@@ -44,23 +47,27 @@ const initialFormData: FormData = {
   consent: false,
 };
 
-// 3. Create the store
-export const useRegistrationStore = create<RegistrationStore>((set) => ({
-  step: 1,
-  formData: initialFormData,
-  
-  // Action to change the wizard step
-  setStep: (step) => set({ step }),
+// 3. Create the store wrapped in persist
+export const useRegistrationStore = create<RegistrationStore>()(
+  persist(
+    (set) => ({
+      step: 1,
+      formData: initialFormData,
+      
+      setStep: (step) => set({ step }),
 
-  // Action to update a specific field in the form data
-  updateForm: (field, value) => 
-    set((state) => ({
-      formData: {
-        ...state.formData,
-        [field]: value,
-      },
-    })),
+      updateForm: (field, value) => 
+        set((state) => ({
+          formData: {
+            ...state.formData,
+            [field]: value,
+          },
+        })),
 
-  // Action to clear everything after a successful submission
-  resetForm: () => set({ step: 1, formData: initialFormData }),
-}));
+      resetForm: () => set({ step: 1, formData: initialFormData }),
+    }),
+    {
+      name: 'camp-registration-storage', // <-- 2. The key name in localStorage
+    }
+  )
+);

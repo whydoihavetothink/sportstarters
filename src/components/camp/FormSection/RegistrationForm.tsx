@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,19 +10,25 @@ import { CAMP_TERMS, TSHIRT_SIZES } from "@/lib/campData";
 import Breadcrumbs from "./Breadcrumbs";
 import { useToast } from "@/hooks/use-toast";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
+import { generateVariableSymbol, formatPhoneNumber, formatZipCode } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   // Connect to the global store
-  const { step, setStep, formData, updateForm, resetForm } = useRegistrationStore();
+  const { step, setStep, formData, updateForm } = useRegistrationStore();
+  
+  // Loading state for API submission
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (step === 1) {
       if (!formData.term) {
-        toast({ title: "Vyberte prosím termín", variant: "destructive" });
+        toast({ title: "Vyberte prosím termín", variant: "destructive", duration: 3000 });
         return;
       }
       setStep(2);
@@ -35,21 +42,56 @@ const RegistrationForm = () => {
 
     if (step === 3) {
       if (!formData.consent) {
-        toast({ title: "Musíte souhlasit s VOP", variant: "destructive" });
+        toast({ title: "Musíte souhlasit s VOP", variant: "destructive", duration: 3000 });
         return;
       }
       
-      // SUCCESS STATE
-      toast({ 
-        title: "Registrace byla úspěšná!", 
-        description: "Brzy vám zašleme potvrzovací e-mail a pokyny k platbě." 
-      });
-      
-      console.log("Submitting payload to API:", formData);
-      // TODO: Actual API call here
-      
-      // Optional: clear the form after successful submission
-      // resetForm(); 
+      setIsSubmitting(true);
+
+      try {
+         // 1. Generate the unique 10-digit ID
+        const variableSymbol = generateVariableSymbol(formData.phone);
+
+        updateForm("variableSymbol", variableSymbol);
+        // 2. Merge it with your existing Zustand form data
+        const finalPayload = {
+          ...formData,
+          variableSymbol: variableSymbol
+        };
+
+        const response = await fetch('/api/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(finalPayload),
+        });
+
+        if (!response.ok) {
+          throw new Error('Nepodařilo se odeslat formulář. Zkuste to prosím znovu.');
+        }
+
+        const result = await response.json();
+        
+        if (result.success) {
+          toast({ 
+            title: "Registrace byla úspěšná!", 
+            description: "Přesměrováváme na platební údaje...",
+            duration: 3000,
+          });
+
+          navigate('/platba');
+        }
+      } catch (error: any) {
+        console.error("Submission error:", error);
+        toast({ 
+          title: "Chyba", 
+          description: error.message,
+          variant: "destructive" 
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -103,7 +145,7 @@ const RegistrationForm = () => {
                   
                   <div className="space-y-2">
                     <Label htmlFor="childDob" className="h-6 flex items-center">Datum narození *</Label>
-                    <Input id="childDob" required type="date" value={formData.childDob} onChange={(e) => updateForm("childDob", e.target.value)} />
+                    <Input id="childDob" required type="date" value={formData.childDob} onChange={(e) => updateForm("childDob", e.target.value)} className="w-full min-w-0 appearance-none" />
                   </div>
 
                   <div className="space-y-2">
@@ -146,7 +188,17 @@ const RegistrationForm = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="h-6 flex items-center">Telefon *</Label>
-                    <Input id="phone" required type="tel" value={formData.phone} onChange={(e) => updateForm("phone", e.target.value)} placeholder="+420 123 456 789" />
+                    <Input 
+                      id="phone" 
+                      required 
+                      type="tel" 
+                      value={formData.phone} 
+                      onChange={(e) => {
+                        const formattedPhone = formatPhoneNumber(e.target.value);
+                        updateForm("phone", formattedPhone);
+                      }} 
+                      placeholder="+420 123 456 789" 
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="h-6 flex items-center">E-mail *</Label>
@@ -167,17 +219,26 @@ const RegistrationForm = () => {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="zipCode" className="h-6 flex items-center">PSČ *</Label>
-                      <Input id="zipCode" required value={formData.zipCode} onChange={(e) => updateForm("zipCode", e.target.value)} placeholder="602 00" />
+                      <Input
+                        id="zipCode"
+                        required
+                        value={formData.zipCode}
+                        onChange={(e) => {
+                          const formattedZipCode = formatZipCode(e.target.value);
+                          updateForm("zipCode", formattedZipCode);
+                        }}
+                        placeholder="602 00"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
 
             <div className="pt-4 flex flex-col-reverse md:flex-row justify-between gap-3">
-              <Button type="button" variant="outline" size="lg" onClick={() => setStep(1)}>
+              <Button type="button" variant="outline" size="lg" onClick={() => setStep(1)} disabled={isSubmitting}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Zpět
               </Button>
-              <Button type="submit" size="lg">
+              <Button type="submit" size="lg" disabled={isSubmitting}>
                 Pokračovat k platbě <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
@@ -197,18 +258,18 @@ const RegistrationForm = () => {
               </div>
 
               <div className="flex items-start gap-3 p-4 border border-border rounded-xl bg-surface hover:bg-muted/50 transition-colors">
-                <Checkbox id="consent" checked={formData.consent} onCheckedChange={(v) => updateForm("consent", v === true)} className="mt-1" />
+                <Checkbox id="consent" checked={formData.consent} onCheckedChange={(v) => updateForm("consent", v === true)} className="mt-1" disabled={isSubmitting} />
                 <Label htmlFor="consent" className="text-sm text-foreground leading-relaxed cursor-pointer font-medium">
                   Souhlasím s <a href="/vop.pdf" className="text-primary hover:underline" target="_blank">Všeobecnými smluvními podmínkami a Kempovým řádem</a>. *
                 </Label>
               </div>
 
             <div className="pt-4 flex flex-col-reverse md:flex-row justify-between gap-3">
-              <Button type="button" variant="outline" size="lg" onClick={() => setStep(2)}>
+              <Button type="button" variant="outline" size="lg" onClick={() => setStep(2)} disabled={isSubmitting}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Zpět
               </Button>
-              <Button type="submit" variant="cta" size="lg">
-                Závazně objednat
+              <Button type="submit" variant="cta" size="lg" disabled={isSubmitting}>
+                {isSubmitting ? "Odesílám..." : "Závazně objednat"}
               </Button>
             </div>
           </div>

@@ -23,6 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.env.local
 
 # macOS specific
 .DS_Store
