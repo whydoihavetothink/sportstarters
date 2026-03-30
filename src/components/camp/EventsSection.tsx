@@ -106,9 +106,8 @@ const EventsSection = () => {
                 ))}
               </CarouselContent>
               
-              {/* Ovládací šipky zobrazené při najetí myši */}
-              <CarouselPrevious className="absolute left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/80 backdrop-blur-sm text-primary border-border hover:bg-background" />
-              <CarouselNext className="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/80 backdrop-blur-sm text-primary border-border hover:bg-background" />
+              <CarouselPrevious className="absolute left-4 bg-background/80 backdrop-blur-sm text-primary border-border" />
+              <CarouselNext className="absolute right-4 bg-background/80 backdrop-blur-sm text-primary border-border" />
             </Carousel>
           </div>
 
