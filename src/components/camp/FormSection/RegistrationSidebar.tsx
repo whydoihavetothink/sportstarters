@@ -2,12 +2,17 @@ import { CAMP_DETAILS } from "@/lib/campData";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
 
 const RegistrationSidebar = () => {
-  // Grab only what we need from the global store
   const formData = useRegistrationStore((state) => state.formData);
 
   const childFullName = [formData.childFirstName, formData.childLastName]
     .filter(Boolean)
     .join(" ");
+
+  // Calculate the final price dynamically
+  const subsidyAmount = 4000;
+  const finalPrice = formData.brnoSubsidy 
+    ? CAMP_DETAILS.price - subsidyAmount 
+    : CAMP_DETAILS.price;
 
   return (
     <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm sticky top-24">
@@ -36,11 +41,26 @@ const RegistrationSidebar = () => {
         )}
       </div>
 
-      <div className="mt-6 pt-6 border-t border-border">
-        <div className="flex justify-between items-end">
-          <span className="text-muted-foreground">Celková cena</span>
-          <span className="text-2xl font-bold text-foreground">
+      <div className="mt-6 pt-6 border-t border-border space-y-2">
+        {/* Breakdown of pricing */}
+        <div className="flex justify-between items-end text-sm">
+          <span className="text-muted-foreground">Základní cena</span>
+          <span className="font-medium text-muted-foreground">
             {CAMP_DETAILS.price.toLocaleString("cs-CZ")} {CAMP_DETAILS.priceCurrency}
+          </span>
+        </div>
+        
+        {formData.brnoSubsidy && (
+          <div className="flex justify-between items-end text-sm text-primary font-medium">
+            <span>Příspěvek města Brna</span>
+            <span>- {subsidyAmount.toLocaleString("cs-CZ")} {CAMP_DETAILS.priceCurrency}</span>
+          </div>
+        )}
+
+        <div className="flex justify-between items-end pt-2 border-t border-border/50">
+          <span className="text-muted-foreground">Celková cena k úhradě</span>
+          <span className="text-2xl font-bold text-foreground">
+            {finalPrice.toLocaleString("cs-CZ")} {CAMP_DETAILS.priceCurrency}
           </span>
         </div>
       </div>

@@ -56,7 +56,8 @@ const RegistrationForm = () => {
         // 2. Merge it with your existing Zustand form data
         const finalPayload = {
           ...formData,
-          variableSymbol: variableSymbol
+          variableSymbol: variableSymbol,
+          dateTime: new Date().toLocaleString('cs-CZ')
         };
 
         const response = await fetch('/api/submit', {
@@ -232,7 +233,27 @@ const RegistrationForm = () => {
                     </div>
                   </div>
                 </div>
+                  <div className="mt-6 flex items-start gap-3 p-4 border border-border rounded-xl bg-primary/5 transition-colors">
+                    <Checkbox 
+                      id="brnoSubsidy" 
+                      checked={formData.brnoSubsidy} 
+                      onCheckedChange={(v) => updateForm("brnoSubsidy", v === true)} 
+                      className="mt-1"
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                      <Label 
+                        htmlFor="brnoSubsidy" 
+                        className="text-sm font-medium leading-relaxed cursor-pointer text-foreground"
+                      >
+                        Využívám finanční příspěvěk města Brna v hodnotě 4000 Kč.
+                      </Label>
+                      <p className="text-xs text-muted-foreground">
+                        Zaškrtnutím tohoto pole prohlašuji, že využiji tento příspěvek pro úhradu části nákladů kempu. Více informací o příspěvku a jeho podmínkách naleznete na <a href="https://www.brnoid.cz/cs/rodicovske-vouchery" target="_blank" className="text-primary hover:underline">oficiálních stránkách města Brna</a>.
+                      </p>
+                    </div>
+                  </div>
               </div>
+
 
             <div className="pt-4 flex flex-col-reverse md:flex-row justify-between gap-3">
               <Button type="button" variant="outline" size="lg" onClick={() => setStep(1)} disabled={isSubmitting}>

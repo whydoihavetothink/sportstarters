@@ -18,6 +18,7 @@ export interface FormData {
   city: string;
   zipCode: string;
   consent: boolean;
+  brnoSubsidy: boolean;
 }
 
 // 2. Define the shape of our store (Unchanged)
@@ -45,6 +46,7 @@ const initialFormData: FormData = {
   city: "",
   zipCode: "",
   consent: false,
+  brnoSubsidy: false,
 };
 
 // 3. Create the store wrapped in persist

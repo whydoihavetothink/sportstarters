@@ -18,7 +18,7 @@ const eligibilityCriteria = [
 const steps = [
   "Zaregistrujte se na portálu Brno iD",
   "Požádejte o rodičovský voucher",
-  "Kód voucheru uplatněte při přihlášení na tábor",
+  "Postupujte podle instrukcí pro získání voucheru na stránkách města Brna",
 ];
 
 const PriceSection = () => {
