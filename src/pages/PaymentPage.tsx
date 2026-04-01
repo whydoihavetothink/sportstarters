@@ -4,6 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { Button } from "../components/ui/button";
 import { useToast } from "../components/ui/use-toast";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
+import { generateQRString } from "@/lib/utils";
 
 const PaymentPage = () => {
   const { formData, resetForm } = useRegistrationStore();
@@ -16,16 +17,6 @@ const PaymentPage = () => {
   const finalAmount = formData.brnoSubsidy 
     ? PAYMENT_INFO.amount - 4000 
     : PAYMENT_INFO.amount;
-
-  const generateQRString = () => {
-    const safeMessage = messageForRecipient
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .substring(0, 60);
-
-    // Inject the dynamically calculated finalAmount here
-    return `SPD*1.0*ACC:${PAYMENT_INFO.iban}*AM:${finalAmount.toFixed(2)}*CC:${PAYMENT_INFO.currency}*X-VS:${vs}*MSG:${safeMessage}`;
-  };
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -101,7 +92,7 @@ const PaymentPage = () => {
 
               <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
                 <QRCodeSVG
-                  value={generateQRString()} 
+                  value={generateQRString(messageForRecipient, finalAmount, vs)}
                   size={192} 
                   level="M" 
                   includeMargin={false} 

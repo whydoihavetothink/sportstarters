@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { PAYMENT_INFO } from "./campData.ts";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -52,7 +53,6 @@ export function formatPhoneNumber(value: string): string {
   return formatted.trim();
 };
 
-
 export function formatZipCode(value: string): string {
   // 1. Remove all non-numeric characters (blocks letters and symbols)
   let cleaned = value.replace(/\D/g, '');
@@ -66,4 +66,14 @@ export function formatZipCode(value: string): string {
   }
 
   return cleaned;
+};
+
+export function generateQRString(messageForRecipient: string, finalAmount: number, vs: string): string {
+  const safeMessage = messageForRecipient
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .substring(0, 60);
+
+  // Inject the dynamically calculated finalAmount here
+  return `SPD*1.0*ACC:${PAYMENT_INFO.iban}*AM:${finalAmount.toFixed(2)}*CC:${PAYMENT_INFO.currency}*X-VS:${vs}*MSG:${safeMessage}`;
 };

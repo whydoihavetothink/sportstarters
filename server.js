@@ -1,7 +1,7 @@
 // Can be ignored, only for local dev. For local testing run `node server.js` and it will start a local Express server that mimics the Vercel API route. Make sure to have your .env.local file set up with the correct SHEETDB_API_URL for it to work properly.
 import express from 'express';
 import dotenv from 'dotenv';
-import submitHandler from './api/submit.js';
+import submitHandler from './api/submit.ts';
 
 dotenv.config({ path: '.env.local' }); // Load your local environment variables
 

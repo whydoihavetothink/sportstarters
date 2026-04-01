@@ -13,9 +13,9 @@ export const CAMP_DETAILS = {
 };
 
 export const PAYMENT_INFO = {
-  accountNumber: "123456789/0300",
-  iban: "CZ0003000000000123456789", 
-  accountName: "Sportstarters z.s.",
+  accountNumber: "2003469970/2010",
+  iban: "CZ8820100000002003469970", 
+  accountName: "Sportstarters",
   amount: 5000.00,
   currency: "CZK",
   dueDate: "do 30 dnů", 

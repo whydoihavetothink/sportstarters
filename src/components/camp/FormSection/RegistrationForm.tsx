@@ -78,7 +78,7 @@ const RegistrationForm = () => {
           toast({ 
             title: "Registrace byla úspěšná!", 
             description: "Přesměrováváme na platební údaje...",
-            duration: 3000,
+            duration: 5000,
           });
 
           navigate('/platba');
