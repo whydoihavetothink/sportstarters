@@ -19,6 +19,7 @@ const steps = [
   "Zaregistrujte se na portálu Brno iD",
   "Požádejte o rodičovský voucher",
   "Postupujte podle instrukcí pro získání voucheru na stránkách města Brna",
+  'Zadejte naši organizaci "Tomáš Novotný (Sportstarters)" jako příjemce voucheru a odešlete kredity',
 ];
 
 const PriceSection = () => {

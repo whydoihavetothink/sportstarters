@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle2, HelpCircle, ArrowRight, ArrowLeft } from "lucide-react";
-import { CAMP_TERMS, TSHIRT_SIZES } from "@/lib/campData";
+import { CAMP_TERMS, CAMP_TERMS_DEADLINES, TSHIRT_SIZES } from "@/lib/campData";
 import Breadcrumbs from "./Breadcrumbs";
 import { useToast } from "@/hooks/use-toast";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
@@ -248,7 +248,7 @@ const RegistrationForm = () => {
                         Využívám finanční příspěvěk města Brna v hodnotě 4000 Kč.
                       </Label>
                       <p className="text-xs text-muted-foreground">
-                        Zaškrtnutím tohoto pole prohlašuji, že využiji tento příspěvek pro úhradu části nákladů kempu. Více informací o příspěvku a jeho podmínkách naleznete na <a href="https://www.brnoid.cz/cs/rodicovske-vouchery" target="_blank" className="text-primary hover:underline">oficiálních stránkách města Brna</a>.
+                        V případě využití voucheru je nutné kredity v systému Brno iD odeslat naší organizaci do 14 dnů od přihlášení, nejpozději však <span className="text font-bold"> do {CAMP_TERMS_DEADLINES[formData.term]}</span>. Pokud kredity nebudou včas připsány, bude vám doúčtována plná cena 5 000 Kč.
                       </p>
                     </div>
                   </div>

@@ -23,7 +23,7 @@ const DailyProgram = () => {
           {schedule.map((item, i) =>
           <div
             key={i}
-            className="flex items-center gap-4 md:gap-6 py-4 border-b border-border last:border-b-0">
+            className="flex items-center gap-4 md:gap-6 py-2 border-b border-border last:border-b-0">
             
               <span className="text-2xl w-10 text-center flex-shrink-0">{item.icon}</span>
               <span className="font-mono text-sm text-muted-foreground w-14 flex-shrink-0">

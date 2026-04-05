@@ -5,8 +5,9 @@ import { Menu, X } from "lucide-react";
 const links = [
 { label: "O Kempu", href: "#o-kempu" },
 { label: "Program", href: "#program" },
+{ label: "Termíny a lokalita", href: "#terminy" },
 { label: "Cena", href: "#cena" },
-{ label: "Termíny a lokalita", href: "#terminy" }];
+];
 
 
 const Navbar = () => {
