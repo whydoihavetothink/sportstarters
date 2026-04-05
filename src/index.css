@@ -98,7 +98,7 @@
 
 @layer utilities {
   .section-padding {
-    @apply px-5 py-16 md:px-8 md:py-24 lg:py-28;
+    @apply px-3 py-16 md:px-8 md:py-24 lg:py-28;
   }
   .container-narrow {
     @apply mx-auto max-w-3xl;

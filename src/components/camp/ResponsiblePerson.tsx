@@ -12,7 +12,7 @@ const ResponsiblePerson = () => {
         </h2>
 
         {/* Changed md:items-start to md:items-stretch so the columns match height */}
-        <div className="bg-surface border border-border rounded-[2rem] p-8 md:p-12 lg:p-16 flex flex-col md:flex-row gap-10 md:gap-14 md:items-stretch relative overflow-hidden shadow-2xl shadow-secondary/20">
+        <div className="bg-surface border border-border rounded-[2rem] py-8 px-4 md:p-12 lg:p-16 flex flex-col md:flex-row gap-10 md:gap-14 md:items-stretch relative overflow-hidden shadow-2xl shadow-secondary/20">
           <div className="absolute top-0 right-0 w-64 h-64 bg-muted/50 rounded-full blur-[100px] pointer-events-none" />
 
           {/* Image Container: 

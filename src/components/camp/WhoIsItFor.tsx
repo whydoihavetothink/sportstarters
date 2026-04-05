@@ -10,7 +10,7 @@ const items = [
 const WhoIsItFor = () => {
   return (
     <section className="section-padding">
-      <div className="container-narrow">
+      <div className="container-narrow px-5">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Pro koho je kemp vhodný?</h2>
         <div className="bg-surface rounded-2xl border border-border p-8 md:p-10">
           <ul className="space-y-4">
