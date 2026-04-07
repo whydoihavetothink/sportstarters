@@ -34,7 +34,7 @@ const Navbar = () => {
           ))}
           
           <div className="flex items-center gap-4 border-l border-border pl-4 ml-2">
-            <Button variant="cta" size="sm" asChild>
+            <Button variant="cta" size="default" asChild>
               <a href="#registrace">Přihláška</a>
             </Button>
             
