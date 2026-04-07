@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-const backgroundImage = "/loga/uvodni-fotka-2.png";
+const backgroundImage = "/loga/uvodni-fotka.png";
 
 const HeroSection = () => {
   return (
@@ -14,7 +14,7 @@ const HeroSection = () => {
       />
       
       {/* 2. Overlay Layer (Light transparent background to ensure text readability) */}
-      <div className="absolute inset-0 z-10 bg-background/50" />
+      <div className="absolute inset-0 z-10 bg-background/80 backdrop-blur-[2px]" />
 
       {/* 3. Content Layer */}
       <div className="container-narrow text-center relative z-20">

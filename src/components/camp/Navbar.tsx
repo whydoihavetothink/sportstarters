@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { InstagramIcon, FacebookIcon } from "../ui/icons";
+import { SOCIAL_MEDIA_LINKS } from "@/lib/campData";
 
 const links = [
   { label: "O Kempu", href: "#o-kempu" },
@@ -39,7 +40,7 @@ const Navbar = () => {
             
             <div className="flex items-center gap-3">
               <a 
-                href="#" 
+                href={SOCIAL_MEDIA_LINKS.instagram}
                 target="_blank" 
                 rel="noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -48,7 +49,7 @@ const Navbar = () => {
                 <InstagramIcon className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href={SOCIAL_MEDIA_LINKS.facebook}
                 target="_blank" 
                 rel="noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -93,7 +94,7 @@ const Navbar = () => {
           {/* Mobile social icons */}
           <div className="flex items-center justify-center gap-6 pt-2 pb-1 border-t border-border/50">
             <a 
-              href="#" 
+              href={SOCIAL_MEDIA_LINKS.instagram}
               target="_blank" 
               rel="noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors p-2"
@@ -102,7 +103,7 @@ const Navbar = () => {
               <InstagramIcon className="w-6 h-6" />
             </a>
             <a 
-              href="#" 
+              href={SOCIAL_MEDIA_LINKS.facebook}
               target="_blank" 
               rel="noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors p-2"

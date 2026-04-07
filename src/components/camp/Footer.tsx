@@ -1,3 +1,4 @@
+import { SOCIAL_MEDIA_LINKS } from "@/lib/campData";
 import { InstagramIcon, FacebookIcon } from "../ui/icons";
 
 
@@ -24,7 +25,7 @@ const Footer = () => {
         {/* Sociální sítě */}
         <div className="flex justify-center gap-6 mt-6">
           <a 
-            href="https://www.instagram.com/sport.starters/" 
+            href={SOCIAL_MEDIA_LINKS.instagram}
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-background/60 hover:text-background transition-colors"
@@ -33,7 +34,7 @@ const Footer = () => {
             <InstagramIcon className="w-5 h-5" />
           </a>
           <a 
-            href="https://facebook.com/sportstarters" 
+            href={SOCIAL_MEDIA_LINKS.facebook}
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-background/60 hover:text-background transition-colors"

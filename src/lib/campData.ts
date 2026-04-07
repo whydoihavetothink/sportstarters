@@ -26,3 +26,8 @@ export const PAYMENT_INFO = {
   currency: "CZK",
   dueDate: "do 30 dnů", 
 };
+
+export const SOCIAL_MEDIA_LINKS = {
+  instagram: "https://www.instagram.com/sport.starters/",
+  facebook: "https://www.facebook.com/sportstarters"
+};
