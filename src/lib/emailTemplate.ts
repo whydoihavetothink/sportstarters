@@ -21,7 +21,7 @@ export const generateConfirmationEmailHtml = (data: ConfirmationEmailData): stri
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1a202c; line-height: 1.6;">
       
       <div style="text-align: center; margin-bottom: 24px;">
-        <img src="${data.logoUrl}" alt="Sportstarters Logo" width="150" style="display: block; margin: 0 auto; border: none; outline: none; text-decoration: none;" />
+        <img src="${data.logoUrl}" alt="Sportstarters Logo" width="400" style="display: block; margin: 0 auto; border: none; outline: none; text-decoration: none;" />
       </div>
 
       <h2 style="color: #1277d4; text-align: center;">Registrace byla úspěšná!</h2>
