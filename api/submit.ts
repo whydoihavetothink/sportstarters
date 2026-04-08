@@ -1,6 +1,6 @@
-import { PAYMENT_INFO } from "../src/lib/campData";
-import { generateQRString } from "../src/lib/utils";
-import { generateConfirmationEmailHtml } from "../src/lib/emailTemplate";
+import { PAYMENT_INFO } from "../src/lib/campData.js";
+import { generateQRString } from "../src/lib/utils.js";
+import { generateConfirmationEmailHtml } from "../src/lib/emailTemplate.js";
 
 // 1. Sanitization Utility to prevent Google Sheets Formula Injection
 const sanitizeForGoogleSheets = (data: Record<string, any>): Record<string, any> => {
