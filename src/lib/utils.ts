@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { PAYMENT_INFO } from "./campData.ts";
+import { PAYMENT_INFO } from "./campData.js";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
