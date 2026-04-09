@@ -1,3 +1,5 @@
+// Update sitemap.xml when adding new pages or during new camp terms (to update google indexing)
+
 export const CAMP_TERMS = [
   "27. 7. - 31. 7. 2026",
   "3. 8. - 7. 8. 2026",
