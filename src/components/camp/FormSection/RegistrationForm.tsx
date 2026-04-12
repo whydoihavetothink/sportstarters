@@ -36,6 +36,18 @@ const RegistrationForm = () => {
     }
 
     if (step === 2) {
+      // 1. Check T-Shirt Size
+      if (!formData.tshirtSize) {
+        toast({ title: "Vyberte prosím velikost trička", variant: "destructive", duration: 3000 });
+        return;
+      }
+
+      // 2. Check "Heard About Us"
+      if (!formData.heardAboutUs) {
+        toast({ title: "Vyberte prosím, jak jste se o nás dozvěděli", variant: "destructive", duration: 3000 });
+        return;
+      }
+
       setStep(3);
       return;
     }
@@ -157,7 +169,7 @@ const RegistrationForm = () => {
                         <span className="text-xs font-medium underline decoration-dotted underline-offset-2 group-hover:decoration-solid">Tabulka velikostí</span>
                       </a>
                     </div>
-                    <Select value={formData.tshirtSize} onValueChange={(val) => updateForm("tshirtSize", val)} required>
+                    <Select name="tshirtSize" value={formData.tshirtSize} onValueChange={(val) => updateForm("tshirtSize", val)} required>
                       <SelectTrigger><SelectValue placeholder="Vyberte velikost" /></SelectTrigger>
                       <SelectContent>
                         {TSHIRT_SIZES.map((s) => (
@@ -233,6 +245,56 @@ const RegistrationForm = () => {
                     </div>
                   </div>
                 </div>
+                <div className="mt-6">
+
+                <div className="space-y-2 md:w-1/2">
+                  <Label htmlFor="heardAboutUs" className="h-6 flex items-center">
+                    Jak jste se o nás dozvěděli? *
+                  </Label>
+                  <Select 
+                    name = "heardAboutUs"
+                    value={formData.heardAboutUs} 
+                    onValueChange={(val) => updateForm("heardAboutUs", val)}
+                    required
+                  >
+                    <SelectTrigger id="heardAboutUs">
+                      <SelectValue placeholder="Vyberte jednu z možností" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="facebook">Facebook</SelectItem>
+                      <SelectItem value="instagram">Instagram</SelectItem>
+                      <SelectItem value="friends">Od známých / doporučení</SelectItem>
+                      <SelectItem value="flyer">Letáček / Plakát ve škole</SelectItem>
+                      <SelectItem value="search">Vyhledávač (Google, Seznam)</SelectItem>
+                      <SelectItem value="other">Jiné</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Conditionally rendered text input for "Jiné" */}
+                {formData.heardAboutUs === "other" && (
+                  <div className="mt-2 animate-fade-up">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="heardAboutUsOther" className="h-6 flex items-center text-muted-foreground">
+                        Prosím, specifikujte *
+                      </Label>
+                      {/* Visual character counter */}
+                      <span className="text-xs text-muted-foreground">
+                        {formData.heardAboutUsOther.length}/50
+                      </span>
+                    </div>
+                    <Input 
+                      id="heardAboutUsOther" 
+                      required 
+                      maxLength={50} // <-- Prevents typing more than 50 characters
+                      value={formData.heardAboutUsOther} 
+                      onChange={(e) => updateForm("heardAboutUsOther", e.target.value)} 
+                      placeholder="Např. inzerát v časopise..." 
+                    />
+                  </div>
+                )}
+
+              </div>
                   <div className="mt-6 flex items-start gap-3 p-4 border border-border rounded-xl bg-primary/5 transition-colors">
                     <Checkbox 
                       id="brnoSubsidy" 

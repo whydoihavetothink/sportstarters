@@ -1,4 +1,5 @@
 // Can be ignored by Vercel, only for local dev. 
+// npx tsx server.js 
 import express from 'express';
 import dotenv from 'dotenv';
 import submitHandler from './api/submit.ts';

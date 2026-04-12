@@ -17,6 +17,8 @@ export interface FormData {
   street: string;
   city: string;
   zipCode: string;
+  heardAboutUs: string;
+  heardAboutUsOther: string;
   consent: boolean;
   brnoSubsidy: boolean;
 }
@@ -45,6 +47,8 @@ const initialFormData: FormData = {
   street: "",
   city: "",
   zipCode: "",
+  heardAboutUs: "",
+  heardAboutUsOther: "",
   consent: false,
   brnoSubsidy: false,
 };
