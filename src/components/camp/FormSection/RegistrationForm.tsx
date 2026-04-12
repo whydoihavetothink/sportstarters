@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
 import { generateVariableSymbol, formatPhoneNumber, formatZipCode } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const RegistrationForm = () => {
   const { toast } = useToast();
@@ -19,6 +20,8 @@ const RegistrationForm = () => {
   
   // Connect to the global store
   const { step, setStep, formData, updateForm } = useRegistrationStore();
+
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   
   // Loading state for API submission
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,11 +56,20 @@ const RegistrationForm = () => {
     }
 
     if (step === 3) {
+      if (!turnstileToken) {
+        toast({ 
+          title: "Bot ochrana", 
+          description: "Prosím, potvrďte, že jste člověk.", 
+          variant: "destructive" 
+        });
+        return;
+      }
+
       if (!formData.consent) {
         toast({ title: "Musíte souhlasit s VOP", variant: "destructive", duration: 3000 });
         return;
       }
-      
+
       setIsSubmitting(true);
 
       try {
@@ -68,6 +80,7 @@ const RegistrationForm = () => {
         // 2. Merge it with your existing Zustand form data
         const finalPayload = {
           ...formData,
+          turnstileToken: turnstileToken,
           variableSymbol: variableSymbol,
           dateTime: new Date().toLocaleString('cs-CZ')
         };
@@ -345,6 +358,20 @@ const RegistrationForm = () => {
                 <Label htmlFor="consent" className="text-sm text-foreground leading-relaxed cursor-pointer font-medium">
                   Souhlasím s <a href="/vop.pdf" className="text-primary hover:underline" target="_blank">Všeobecnými smluvními podmínkami a Kempovým řádem</a>. *
                 </Label>
+              </div>
+            
+            <div className="flex flex-col items-center">
+                {/* 5. The Turnstile Widget */}
+                <Turnstile
+                  siteKey={import.meta.env.VITE_PUBLIC_CLOUDFLARE_TURNSTILE_KEY!}
+                  onSuccess={(token) => setTurnstileToken(token)}
+                  onExpire={() => setTurnstileToken(null)}
+                  onError={() => setTurnstileToken(null)}
+                  options={{
+                    theme: 'light',
+                    size: 'flexible'
+                  }}
+                />
               </div>
 
             <div className="pt-4 flex flex-col-reverse md:flex-row justify-between gap-3">

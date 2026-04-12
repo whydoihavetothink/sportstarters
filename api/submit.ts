@@ -74,7 +74,35 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const rawData = req.body;
+    // 1. Extract the Turnstile token and separate it from the actual form data
+    const { turnstileToken, ...rawData } = req.body;
+
+    // 2. Validate that the token exists
+    if (!turnstileToken) {
+      return res.status(400).json({ error: 'Chybí Turnstile token.' });
+    }
+
+    // 3. Verify the token with Cloudflare
+    const turnstileVerifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        secret: process.env.PRIVATE_CLOUDFLARE_TURNSTILE_KEY, // This must be set in your backend environment!
+        response: turnstileToken,
+      }),
+    });
+
+    const turnstileVerifyData = await turnstileVerifyResponse.json();
+
+    // 4. Reject the request if verification fails
+    if (!turnstileVerifyData.success) {
+      console.error('Turnstile validation failed:', turnstileVerifyData);
+      return res.status(403).json({ error: 'Bot ochrana selhala. Zkuste to prosím znovu.' });
+    }
+
+    // CLOUDFLARE VERIFIED - PROCEED WITH NORMAL PROCESSING
 
     // 1. Sanitize the payload
     const sanitizedData = sanitizeForGoogleSheets(rawData);
