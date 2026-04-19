@@ -5,7 +5,7 @@ const ResponsiblePerson = () => {
   const [isImageExpanded, setIsImageExpanded] = useState(false);
 
   return (
-    <section className="section-padding bg-background">
+    <section className="section-padding bg-surface">
       <div className="container max-w-4xl">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-16 tracking-tight">
           Kdo povede kemp?
@@ -19,7 +19,7 @@ const ResponsiblePerson = () => {
             - On mobile: uses aspect-[4/5] to maintain a good shape.
             - On desktop: md:aspect-auto lets it stretch to match the text height.
           */}
-          <div 
+          <div
             className="relative group w-[85%] sm:w-[65%] md:w-[40%] lg:w-[45%] aspect-[4/5] md:aspect-auto flex-shrink-0 mx-auto md:mx-0 cursor-pointer rounded-3xl md:rounded-2xl overflow-hidden shadow-lg"
             onClick={() => setIsImageExpanded(true)}
             role="button"
@@ -32,19 +32,19 @@ const ResponsiblePerson = () => {
             }}
           >
             <div className="absolute inset-0 bg-secondary transition-transform duration-500 ease-out" />
-            
+
             {/* The image uses object-cover to perfectly fill the stretched height */}
             <img
               src="/profil/profil.png"
               alt="Tomáš Novotný"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
-            
+
             {/* Hover overlay indicator */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10 flex items-center justify-center">
-               <div className="bg-white/90 backdrop-blur-sm text-foreground px-5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold text-sm shadow-xl translate-y-4 group-hover:translate-y-0">
-                 Zvětšit fotku
-               </div>
+              <div className="bg-white/90 backdrop-blur-sm text-foreground px-5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold text-sm shadow-xl translate-y-4 group-hover:translate-y-0">
+                Zvětšit fotku
+              </div>
             </div>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -55,11 +55,11 @@ const ResponsiblePerson = () => {
             <h3 className="text-3xl font-extrabold mb-1 tracking-tight">
               Tomáš Novotný
             </h3>
-            
+
             <p className="text-primary font-semibold text-base mb-6 md:mb-8">
               Zakladatel a hlavní vedoucí tábora
             </p>
-            
+
             <div className="text-muted-foreground leading-relaxed space-y-5 text-base md:text-[17px]">
               <p>
                 Jmenuji se Tomáš Novotný, je mi 22&nbsp;let a&nbsp;studuji na Masarykově univerzitě v&nbsp;Brně. Od dětství se věnuji sportu – vyzkoušel jsem fotbal, basketbal, florbal, atletiku i&nbsp;volejbal, přičemž basketbalu jsem se aktivně věnoval více než 10&nbsp;let. Dnes sportuji především rekreačně, ale pohyb je pro mě stále důležitou součástí života.
@@ -67,7 +67,7 @@ const ResponsiblePerson = () => {
               <p>
                 Myšlenka příměstského tábora vznikla z&nbsp;vlastní zkušenosti. Vím, jaké to bylo, když nám rodiče hledali program na léto, abychom netrávili čas jen u&nbsp;počítače. Chtěl jsem proto vytvořit prostředí, kde si děti nejen zasportují, ale zároveň si užijí léto, poznají nové kamarády a&nbsp;na chvíli se odpoutají od mobilů.
               </p>
-              <p> 
+              <p>
                 Cílem tábora je ukázat dětem, že sport může být zábava, přirozený pohyb a&nbsp;zároveň způsob, jak si budovat zdravé návyky a&nbsp;přátelství na celý život.
               </p>
             </div>
@@ -77,7 +77,7 @@ const ResponsiblePerson = () => {
 
       {/* Lightbox / Modal */}
       {isImageExpanded && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 md:p-8 animate-in fade-in duration-200"
           onClick={() => setIsImageExpanded(false)}
         >
@@ -86,9 +86,9 @@ const ResponsiblePerson = () => {
               src="/profil/profil.png"
               alt="Tomáš Novotný (zvětšené)"
               className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
-              onClick={(e) => e.stopPropagation()} 
+              onClick={(e) => e.stopPropagation()}
             />
-            
+
             <button
               onClick={() => setIsImageExpanded(false)}
               className="absolute top-2 right-2 md:-right-12 md:-top-12 bg-black/50 hover:bg-black/80 text-white rounded-full p-2 transition-colors shadow-lg border border-white/10"

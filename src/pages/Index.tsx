@@ -9,6 +9,7 @@ import FAQSection from "@/components/camp/FAQSection";
 import Footer from "@/components/camp/Footer";
 import EventsSection from "@/components/camp/EventsSection";
 import RegistrationSection from "@/components/camp/FormSection/RegistrationSection";
+import CouponSection from "@/components/camp/CouponSection";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <DailyProgram />
       <EventsSection />
       <PriceSection />
+      <CouponSection />
       <ResponsiblePerson />
       <FAQSection />
       <RegistrationSection />

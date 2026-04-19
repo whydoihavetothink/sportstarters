@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-{
+  {
     q: "Je kemp vhodný i pro úplné začátečníky?",
     a: "Ano, kemp je vhodný pro všechny děti bez ohledu na úroveň. Aktivity přizpůsobujeme tak, aby si je užili jak začátečníci, tak sportovně pokročilejší děti.",
   },
@@ -50,7 +50,7 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="section-padding bg-surface">
+    <section className="section-padding bg-background">
       <div className="container-narrow">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Často kladené otázky</h2>
         <Accordion type="single" collapsible className="w-full">
