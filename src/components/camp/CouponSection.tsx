@@ -41,7 +41,7 @@ const CouponSection = () => {
               </div>
 
               <p className="text-muted-foreground text-lg mt-6 leading-relaxed">
-                Slevový kód nelze využít v kombinaci s finančním příspěvkem města Brna.<br />Sleva vám bude uplatněna po zaplacení a kontrole počtu sourozenců.
+                Slevový kód nelze využít v kombinaci s finančním příspěvkem města Brna.
               </p>
             </div>
           </div>

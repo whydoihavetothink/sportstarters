@@ -10,22 +10,23 @@ const RegistrationSidebar = () => {
 
   // Calculate the final price dynamically
   const subsidyAmount = 4000;
-  const finalPrice = formData.brnoSubsidy 
-    ? CAMP_DETAILS.price - subsidyAmount 
-    : CAMP_DETAILS.price;
+  const couponSale = formData.couponCode === "RODINA500" ? 500 : undefined;
+  const finalPrice = formData.brnoSubsidy
+    ? CAMP_DETAILS.price - subsidyAmount
+    : couponSale ? CAMP_DETAILS.price - couponSale : CAMP_DETAILS.price;
 
   return (
     <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm sticky top-24">
       <h3 className="text-xl font-display font-bold mb-5 border-b border-border pb-4">
         Shrnutí objednávky
       </h3>
-      
+
       <div className="space-y-4 text-sm">
         <div>
           <span className="block text-muted-foreground mb-1">Název programu</span>
           <span className="font-medium text-foreground text-base">{CAMP_DETAILS.name}</span>
         </div>
-        
+
         <div>
           <span className="block text-muted-foreground mb-1">Zvolený termín</span>
           <span className="font-medium text-foreground text-base">
@@ -49,7 +50,14 @@ const RegistrationSidebar = () => {
             {CAMP_DETAILS.price.toLocaleString("cs-CZ")} {CAMP_DETAILS.priceCurrency}
           </span>
         </div>
-        
+
+        {couponSale && (
+          <div className="flex justify-between items-end text-sm text-primary font-medium">
+            <span>Kupon RODINA500</span>
+            <span>- {couponSale} {CAMP_DETAILS.priceCurrency}</span>
+          </div>
+        )}
+
         {formData.brnoSubsidy && (
           <div className="flex justify-between items-end text-sm text-primary font-medium">
             <span>Příspěvek města Brna</span>

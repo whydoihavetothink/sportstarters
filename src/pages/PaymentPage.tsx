@@ -14,9 +14,9 @@ const PaymentPage = () => {
   const messageForRecipient = `Sportstarters termín ${formData.term}: ${formData.childFirstName} ${formData.childLastName}`;
 
   // --- NEW: Calculate the final amount based on the subsidy ---
-  const finalAmount = formData.brnoSubsidy 
-    ? PAYMENT_INFO.amount - 4000 
-    : PAYMENT_INFO.amount;
+  const finalAmount = formData.brnoSubsidy
+    ? PAYMENT_INFO.amount - 4000
+    : formData.couponCode === "RODINA500" ? PAYMENT_INFO.amount - 500 : PAYMENT_INFO.amount;
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -31,7 +31,7 @@ const PaymentPage = () => {
     <section className="py-16 md:px-8 md:py-24 bg-background min-h-screen flex items-center justify-center">
       <div className="container mx-auto max-w-3xl">
         <div className="bg-surface border border-border rounded-2xl p-6 md:p-10 shadow-sm animate-fade-up">
-          
+
           {/* Header Section */}
           <div className="text-center mb-10">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -45,9 +45,9 @@ const PaymentPage = () => {
               jsme vám také zaslali na e-mail <strong>{formData.email}</strong>.
             </p>
           </div>
-          
+
           <hr className="border-border mb-10" />
-          
+
           {/* Payment Details Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {/* Left Col: Text Details */}
@@ -93,9 +93,9 @@ const PaymentPage = () => {
               <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
                 <QRCodeSVG
                   value={generateQRString(messageForRecipient, finalAmount, vs)}
-                  size={192} 
-                  level="M" 
-                  includeMargin={false} 
+                  size={192}
+                  level="M"
+                  includeMargin={false}
                 />
               </div>
               <p className="text-sm text-muted-foreground text-center font-body">
@@ -103,7 +103,7 @@ const PaymentPage = () => {
               </p>
             </div>
           </div>
-          
+
           {/* Footer Actions */}
           <div className="mt-12 pt-8 border-t border-border flex justify-center">
             <Button
