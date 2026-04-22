@@ -27,10 +27,10 @@ const HeroSection = () => {
             Léto 2026 · Brno
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-4">
-            <span className="text-primary">Příměstský tábor Brno</span>
+            <span className="text-primary">Příměstský tábor v Brně</span>
           </h1>
           <p className="text-lg md:text-xl text-foreground/80 max-w-xl mx-auto mb-8 font-medium">
-            Sportstarters je nový sportovní příměstský tábor v Brně pro děti ve věku 6–13 let.
+            Sportstarters je nový sportovní příměstský tábor v Brně pro děti ve věku 6-13 let.
             Pohyb, kamarádi a super zážitky — během jednoho týdne.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
