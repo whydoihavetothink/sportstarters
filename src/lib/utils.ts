@@ -77,3 +77,18 @@ export function generateQRString(messageForRecipient: string, finalAmount: numbe
   // Inject the dynamically calculated finalAmount here
   return `SPD*1.0*ACC:${PAYMENT_INFO.iban}*AM:${finalAmount.toFixed(2)}*CC:${PAYMENT_INFO.currency}*X-VS:${vs}*MSG:${safeMessage}`;
 };
+
+export const DISCOUNTS = {
+  BRNO_SUBSIDY: 4000,
+  RODINA500: 500,
+};
+
+export function calculateFinalAmount(formData: { brnoSubsidy?: boolean; couponCode?: string } | Record<string, any>): number {
+  if (formData.brnoSubsidy) {
+    return PAYMENT_INFO.amount - DISCOUNTS.BRNO_SUBSIDY;
+  }
+  if (formData.couponCode === "RODINA500") {
+    return PAYMENT_INFO.amount - DISCOUNTS.RODINA500;
+  }
+  return PAYMENT_INFO.amount;
+}

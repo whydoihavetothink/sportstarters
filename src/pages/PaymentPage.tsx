@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { Button } from "../components/ui/button";
 import { useToast } from "../components/ui/use-toast";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
-import { generateQRString } from "@/lib/utils";
+import { generateQRString, calculateFinalAmount } from "@/lib/utils";
 
 const PaymentPage = () => {
   const { formData, resetForm } = useRegistrationStore();
@@ -14,9 +14,7 @@ const PaymentPage = () => {
   const messageForRecipient = `Sportstarters termín ${formData.term}: ${formData.childFirstName} ${formData.childLastName}`;
 
   // --- NEW: Calculate the final amount based on the subsidy ---
-  const finalAmount = formData.brnoSubsidy
-    ? PAYMENT_INFO.amount - 4000
-    : formData.couponCode === "RODINA500" ? PAYMENT_INFO.amount - 500 : PAYMENT_INFO.amount;
+  const finalAmount = calculateFinalAmount(formData);
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);

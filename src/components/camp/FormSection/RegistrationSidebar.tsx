@@ -1,5 +1,6 @@
 import { CAMP_DETAILS } from "@/lib/campData";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
+import { calculateFinalAmount, DISCOUNTS } from "@/lib/utils";
 
 const RegistrationSidebar = () => {
   const formData = useRegistrationStore((state) => state.formData);
@@ -9,11 +10,9 @@ const RegistrationSidebar = () => {
     .join(" ");
 
   // Calculate the final price dynamically
-  const subsidyAmount = 4000;
-  const couponSale = formData.couponCode === "RODINA500" ? 500 : undefined;
-  const finalPrice = formData.brnoSubsidy
-    ? CAMP_DETAILS.price - subsidyAmount
-    : couponSale ? CAMP_DETAILS.price - couponSale : CAMP_DETAILS.price;
+  const subsidyAmount = DISCOUNTS.BRNO_SUBSIDY;
+  const couponSale = formData.couponCode === "RODINA500" ? DISCOUNTS.RODINA500 : undefined;
+  const finalPrice = calculateFinalAmount(formData);
 
   return (
     <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm sticky top-24">

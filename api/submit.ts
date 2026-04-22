@@ -1,5 +1,5 @@
 import { PAYMENT_INFO } from "../src/lib/campData.js";
-import { generateQRString } from "../src/lib/utils.js";
+import { generateQRString, calculateFinalAmount } from "../src/lib/utils.js";
 import { generateConfirmationEmailHtml } from "../src/lib/emailTemplate.js";
 
 // 1. Sanitization Utility to prevent Google Sheets Formula Injection
@@ -22,7 +22,7 @@ const sendConfirmationEmail = async (data: Record<string, any>) => {
 
   // Generate the strict Czech QR string (strip diacritics)
   const safeMessage = messageForRecipient.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substring(0, 60);
-  const finalAmount = data.brnoSubsidy ? PAYMENT_INFO.amount - 4000 : PAYMENT_INFO.amount;
+  const finalAmount = calculateFinalAmount(data);
   const qrString = generateQRString(safeMessage, finalAmount, data.variableSymbol);
   
   // Create a live URL for the QR code image
