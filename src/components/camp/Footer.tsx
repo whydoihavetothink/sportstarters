@@ -22,13 +22,6 @@ const Footer = () => {
           </a>
         </div>
 
-        <button 
-          onClick={() => window.Cookiebot?.renew()} 
-          className="mt-4 text-md text-background/60 hover:text-background transition-colors"
-        >
-          Nastavení cookies
-        </button>
-
         {/* Sociální sítě */}
         <div className="flex justify-center gap-6 mt-6">
           <a 
