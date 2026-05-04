@@ -6,6 +6,7 @@ import { SOCIAL_MEDIA_LINKS } from "@/lib/campData";
 
 const links = [
   { label: "O Kempu", href: "#o-kempu" },
+  { label: "Pro koho je kemp?", href: "#pro-koho-je-tabor" },
   { label: "Program", href: "#program" },
   { label: "Termíny a lokalita", href: "#terminy" },
   { label: "Cena", href: "#cena" },

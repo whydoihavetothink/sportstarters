@@ -12,7 +12,7 @@ const items = [
 const WhoIsItFor = () => {
   return (
     // Added relative positioning so the absolute gradient stays contained within this section
-    <section className="relative section-padding z-0">
+    <section className="relative section-padding z-0" id='pro-koho-je-tabor'>
       
       {/* Injecting the reusable gradient background */}
       <SectionGradient />
