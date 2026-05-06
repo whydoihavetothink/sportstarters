@@ -100,17 +100,6 @@ const RegistrationForm = () => {
         const result = await response.json();
 
         if (result.success) {
-
-          // --- GOOGLE ADS CONVERSION TAG ---
-          // We use window.gtag in React to access the global gtag function
-          if (typeof window !== "undefined" && typeof window.gtag === 'function') {
-            window.gtag('event', 'ads_conversion_Submit_lead_form_1', {
-                'value': 5000.0,
-                'currency': 'CZK'
-            });
-          }
-          // ---------------------------------
-
           toast({
             title: "Registrace byla úspěšná!",
             description: "Přesměrováváme na platební údaje...",
