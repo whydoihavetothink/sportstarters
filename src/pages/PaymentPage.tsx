@@ -17,16 +17,6 @@ const PaymentPage = () => {
   // --- NEW: Calculate the final amount based on the subsidy ---
   const finalAmount = calculateFinalAmount(formData);
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-      (window as any).gtag('event', 'conversion_event_purchase', {
-        transaction_id: vs,
-        value: 5000,
-        currency: PAYMENT_INFO.currency || "CZK",
-      });
-    }
-  }, [vs]);
-
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     toast({
