@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PAYMENT_INFO } from "@/lib/campData";
 import { ArrowRight, CheckCircle2, Copy } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
@@ -6,16 +6,33 @@ import { Button } from "../components/ui/button";
 import { useToast } from "../components/ui/use-toast";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
 import { generateQRString, calculateFinalAmount } from "@/lib/utils";
+import { useMetaPixel } from "@/hooks/useMetaPixel";
 
 const PaymentPage = () => {
   const { formData, resetForm } = useRegistrationStore();
   const { toast } = useToast();
+  const { trackCustomEvent } = useMetaPixel(); // <-- Initialize the hook
+  const hasTracked = useRef(false); // <-- Ref to prevent double-firing in Strict Mode
 
   const vs = formData.variableSymbol || "0000000000";
   const messageForRecipient = `Sportstarters termín ${formData.term}: ${formData.childFirstName} ${formData.childLastName}`;
 
-  // --- NEW: Calculate the final amount based on the subsidy ---
+  // Calculate the final amount based on the subsidy
   const finalAmount = calculateFinalAmount(formData);
+
+  // --- NEW: Track the custom event on page load META PIXEL ---
+  useEffect(() => {
+    // We check hasTracked.current so it only fires once per visit
+    if (!hasTracked.current && finalAmount > 0) {
+      trackCustomEvent("Purchase", {
+        value: finalAmount,
+        currency: PAYMENT_INFO.currency,
+        content_name: "Lead",
+      });
+      hasTracked.current = true;
+      console.log("Meta Pixel Tracked");
+    }
+  }, [finalAmount, trackCustomEvent]);
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -56,7 +73,6 @@ const PaymentPage = () => {
               </h3>
 
               <div className="space-y-4">
-                {/* Display the dynamically calculated finalAmount */}
                 <DetailRow
                   label="Částka k úhradě"
                   value={`${finalAmount.toFixed(2)} ${PAYMENT_INFO.currency}`}
