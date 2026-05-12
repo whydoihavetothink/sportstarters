@@ -7,6 +7,13 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PaymentPage from "./pages/PaymentPage";
 import { Analytics } from "@vercel/analytics/react";
+import { useMetaPixel } from "./hooks/useMetaPixel"; // <-- 1. Import your custom hook
+
+// <-- 2. Create an invisible tracker component
+const PixelTracker = () => {
+  useMetaPixel();
+  return null; // It renders nothing, just runs the hook
+};
 
 const queryClient = new QueryClient();
 
@@ -16,6 +23,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        {/* <-- 3. Put the tracker inside BrowserRouter, above Routes */}
+        <PixelTracker /> 
+        
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
