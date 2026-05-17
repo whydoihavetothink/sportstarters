@@ -81,14 +81,23 @@ export function generateQRString(messageForRecipient: string, finalAmount: numbe
 export const DISCOUNTS = {
   BRNO_SUBSIDY: 4000,
   RODINA500: 500,
+  VESNICE: 500,
 };
+
+export function getCouponDiscount(couponCode: string | undefined): number {
+  switch (couponCode) {
+    case "RODINA500":
+      return DISCOUNTS.RODINA500;
+    case "VESNICE":
+      return DISCOUNTS.VESNICE;
+    default:
+      return 0;
+  }
+}
 
 export function calculateFinalAmount(formData: { brnoSubsidy?: boolean; couponCode?: string } | Record<string, any>): number {
   if (formData.brnoSubsidy) {
     return PAYMENT_INFO.amount - DISCOUNTS.BRNO_SUBSIDY;
   }
-  if (formData.couponCode === "RODINA500") {
-    return PAYMENT_INFO.amount - DISCOUNTS.RODINA500;
-  }
-  return PAYMENT_INFO.amount;
+  return PAYMENT_INFO.amount - getCouponDiscount(formData.couponCode);
 }

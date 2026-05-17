@@ -1,6 +1,6 @@
 import { CAMP_DETAILS } from "@/lib/campData";
 import { useRegistrationStore } from "@/store/useRegistrationStore";
-import { calculateFinalAmount, DISCOUNTS } from "@/lib/utils";
+import { calculateFinalAmount, DISCOUNTS, getCouponDiscount } from "@/lib/utils";
 
 const RegistrationSidebar = () => {
   const formData = useRegistrationStore((state) => state.formData);
@@ -11,7 +11,7 @@ const RegistrationSidebar = () => {
 
   // Calculate the final price dynamically
   const subsidyAmount = DISCOUNTS.BRNO_SUBSIDY;
-  const couponSale = formData.couponCode === "RODINA500" ? DISCOUNTS.RODINA500 : undefined;
+  const couponSale = getCouponDiscount(formData.couponCode);
   const finalPrice = calculateFinalAmount(formData);
 
   return (
@@ -50,9 +50,9 @@ const RegistrationSidebar = () => {
           </span>
         </div>
 
-        {couponSale && (
+        {couponSale !== 0 && (
           <div className="flex justify-between items-end text-sm text-primary font-medium">
-            <span>Kupon RODINA500</span>
+            <span>Kupon {formData.couponCode}</span>
             <span>- {couponSale} {CAMP_DETAILS.priceCurrency}</span>
           </div>
         )}
