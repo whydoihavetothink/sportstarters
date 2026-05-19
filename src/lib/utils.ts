@@ -81,7 +81,7 @@ export function generateQRString(messageForRecipient: string, finalAmount: numbe
 export const DISCOUNTS = {
   BRNO_SUBSIDY: 4000,
   RODINA500: 500,
-  VESNICE: 500,
+  VESNICE: 1000,
 };
 
 export function getCouponDiscount(couponCode: string | undefined): number {
