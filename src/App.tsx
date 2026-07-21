@@ -17,12 +17,12 @@ const PixelTracker = () => {
 
 const queryClient = new QueryClient();
 
-const App = () => (
+export const App = ({ Router = BrowserRouter }: { Router?: React.ComponentType<{ children: React.ReactNode }> }) => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <Router>
         {/* <-- 3. Put the tracker inside BrowserRouter, above Routes */}
         <PixelTracker /> 
         
@@ -32,7 +32,7 @@ const App = () => (
           <Route path="/platba" element={<PaymentPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
       <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
